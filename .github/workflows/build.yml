@@ -1,5 +1,5 @@
-name: Android build (signed AAB / debug APK)
-run-name: "Android • ${{ inputs.target }} • ${{ inputs.ref || github.ref_name }}"
+﻿name: Android build (signed AAB / debug APK)
+run-name: "Android вЂў ${{ inputs.target }} вЂў ${{ inputs.ref || github.ref_name }}"
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ on:
       ref:
         description: "Git ref (branch/tag/sha)"
         required: false
-        default: "master"
+        default: "macrodroid-control"
 
 jobs:
   build:
@@ -40,7 +40,9 @@ jobs:
       uses: gradle/actions/setup-gradle@v4
 
     - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
+      uses: android-actions/setup-android@v4
+      with:
+        log-accepted-android-sdk-licenses: false
 
     - name: Configure build
       id: cfg
@@ -139,3 +141,4 @@ jobs:
         name: ${{ steps.cfg.outputs.artifact_name }}
         path: ${{ steps.sign.outputs.final_file || steps.locate.outputs.built_file }}
         if-no-files-found: error
+
